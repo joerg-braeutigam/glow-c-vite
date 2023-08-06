@@ -9,6 +9,13 @@ export default function App() {
 	const [selectedEvent, setSelectedEvent] = useState(null);
 	const [qrCodeData, setQRCodeData] = useState(null);
 
+	useEffect(() => {
+		const storedQRCodeData = localStorage.getItem("qrCodeData");
+		if (storedQRCodeData) {
+			setQRCodeData(storedQRCodeData);
+		}
+	}, []);
+
 	const handleSelectEvent = event => {
 		setSelectedEvent(event);
 	};
