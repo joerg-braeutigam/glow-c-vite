@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { convertToPeruvianDate } from "../utils/dateUtils";
 
 function Adressinput({ selectedEvent, onFormSubmit }) {
@@ -19,8 +19,18 @@ function Adressinput({ selectedEvent, onFormSubmit }) {
 		});
 	};
 
-	const handleFormSubmit = event => {
+	useEffect(() => {
+		const storedData = localStorage.getItem("formData");
+		if (storedData) {
+			setFormData(JSON.parse(storedData));
+		}
+	}, []);
+
+	const handleFormSubmit = async event => {
 		event.preventDefault();
+
+		localStorage.setItem("formData", JSON.stringify(formData));
+
 		// Hier kannst du den Code für die Verarbeitung der Formulardaten einfügen
 		// Nach der Verarbeitung kannst du die API-Anfrage zum Speichern der Daten machen
 		// Annahme: Die API-Anfrage gibt die customerId zurück
